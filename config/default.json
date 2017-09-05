@@ -21,9 +21,8 @@
   "TELEGRAM": {
     "TOKEN": null
   },
-  "GOOGLE": {
-    "MAPS": {
-      "KEY": null
-    }
+  "FORMAT": "0,0[.]00",
+  "CURRENCYLAYER": {
+    "KEY": null
   }
 }

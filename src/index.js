@@ -13,7 +13,7 @@ const info = require("../package.json");
 
 const config = configuration();
 
-const math = createMath();
+const math = createMath(config);
 const logger = createLogger(config);
 const manager = createSessionManager(config);
 

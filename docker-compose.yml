@@ -24,3 +24,4 @@ services:
       - LOG__EXCEPTIONS=true
       - URL
       - TELEGRAM__TOKEN
+      - CURRENCYLAYER__KEY

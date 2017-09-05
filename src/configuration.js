@@ -46,7 +46,7 @@ module.exports = function configuration(subtree = null) {
   config.set("URL", config.get("APP_URL") || config.get("NOW_URL") || config.get("URL"));
 
   // Throw error if missing
-  config.required(["URL", "TELEGRAM:TOKEN"]);
+  config.required(["URL", "TELEGRAM:TOKEN", "CURRENCYLAYER:KEY"]);
 
   // Return a sub-tree of the config object is needed
   return subtree ? config.sub(subtree) : config;

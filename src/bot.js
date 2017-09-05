@@ -168,7 +168,8 @@ module.exports = function createBot(options) {
         await ctx.sendMessage("result.input", { parse_mode: "Markdown" });
 
         const code = node.compile();
-        ctx.data.result = String(code.eval(ctx.session.scope));
+        const result = code.eval(ctx.session.scope);
+        ctx.data.result = math.format(result);
         await ctx.sendMessage("result.output");
       } catch (err) {
         logger.error(err);

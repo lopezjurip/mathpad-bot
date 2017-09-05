@@ -2,6 +2,34 @@
 # yarn lockfile v1
 
 
+"@cryptolw/error@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@cryptolw/error/-/error-0.0.3.tgz#bd7e32dfa88725cf2ad8adb73d9ce547f41f797c"
+  dependencies:
+    es6-error "^4.0.2"
+
+"@cryptolw/market-crypto@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@cryptolw/market-crypto/-/market-crypto-0.0.2.tgz#82f883c2a9629f89bdd5c5cbeea82dc8d746902a"
+  dependencies:
+    "@cryptolw/error" "^0.0.3"
+    "@cryptolw/money-parse" "^0.0.2"
+    millisecond "^0.1.2"
+
+"@cryptolw/market-fiat@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@cryptolw/market-fiat/-/market-fiat-0.0.2.tgz#b90df4d42054623bd7de37ebd1c18b9a16ae2ac8"
+  dependencies:
+    "@cryptolw/error" "^0.0.3"
+    "@cryptolw/money-parse" "^0.0.2"
+    millisecond "^0.1.2"
+
+"@cryptolw/money-parse@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@cryptolw/money-parse/-/money-parse-0.0.2.tgz#4f1fd950260dde75a1f63a9b5eb320b58c45cba5"
+  dependencies:
+    numeral "^2.0.6"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -217,6 +245,13 @@ aws-sign2@~0.6.0:
 aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
+
+axios@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
+  dependencies:
+    follow-redirects "^1.2.3"
+    is-buffer "^1.1.5"
 
 babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
   version "6.26.0"
@@ -721,7 +756,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-debug@^2.2.0, debug@^2.6.3, debug@^2.6.8:
+debug@^2.2.0, debug@^2.4.5, debug@^2.6.3, debug@^2.6.8:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
@@ -850,6 +885,10 @@ error-ex@^1.2.0:
   resolved "https://registry.yarnpkg.com/error-ex/-/error-ex-1.3.1.tgz#f855a86ce61adc4e8621c3cda21e7a7612c3a8dc"
   dependencies:
     is-arrayish "^0.2.1"
+
+es6-error@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/es6-error/-/es6-error-4.0.2.tgz#eec5c726eacef51b7f6b73c20db6e1b13b069c98"
 
 es6-promise@^3.3.1:
   version "3.3.1"
@@ -1132,6 +1171,12 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
+
+follow-redirects@^1.2.3:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.2.4.tgz#355e8f4d16876b43f577b0d5ce2668b9723214ea"
+  dependencies:
+    debug "^2.4.5"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -2240,6 +2285,10 @@ micromatch@^2.1.5, micromatch@^2.3.11:
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
 
+millisecond@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/millisecond/-/millisecond-0.1.2.tgz#6cc5ad386241cab8e78aff964f87028eec92dac5"
+
 mime-db@~1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.12.0.tgz#3d0c63180f458eb10d325aaa37d7c58ae312e9d7"
@@ -2445,6 +2494,10 @@ number-is-nan@^1.0.0:
 numbers@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/numbers/-/numbers-0.6.0.tgz#fd4af298e748b47d617305a9133a4c1302b8d9af"
+
+numeral@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/numeral/-/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
 
 numeric@^1.2.6:
   version "1.2.6"
@@ -2930,6 +2983,12 @@ rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
+rxjs@^5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.3.tgz#0758cddee6033d68e0fd53676f0f3596ce3d483f"
+  dependencies:
+    symbol-observable "^1.0.1"
+
 safe-buffer@^5.0.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
@@ -3164,6 +3223,10 @@ supports-color@^4.0.0:
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.4.0.tgz#883f7ddabc165142b2a61427f3352ded195d1a3e"
   dependencies:
     has-flag "^2.0.0"
+
+symbol-observable@^1.0.1:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
 symbol-tree@^3.2.1:
   version "3.2.2"
