@@ -1,0 +1,57 @@
+{
+  "name": "mathpad-bot",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "files": [
+    "src",
+    "docs",
+    "config"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrpatiwi/mathpad-bot.git"
+  },
+  "author": {
+    "email": "patricio@lopezjuri.com",
+    "name": "Patricio López Juri",
+    "url": "https://lopezjuri.com",
+    "username": "mrpatiwi",
+    "btc": "3KDbM5Y9UcHeuN5innf83gxxxiStxZ8WdE",
+    "eth": "0xcc3321cCF07Ab2F8b2E29f7dE9925762A2A3b33d",
+    "paypal": "https://www.paypal.me/lopezjuri/1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "bot-brother": "^2.1.5",
+    "dedent": "^0.7.0",
+    "dotenv": "^4.0.0",
+    "lodash": "^4.17.4",
+    "mathjs": "^3.16.3",
+    "moment": "^2.18.1",
+    "mz": "^2.6.0",
+    "nconf": "^0.8.4",
+    "numbers": "^0.6.0",
+    "numeric": "^1.2.6",
+    "redis": "^2.7.1",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-prettier": "^2.1.1",
+    "eslint-plugin-prettier": "^2.1.1",
+    "jest": "^21.0.1",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.5.3"
+  }
+}

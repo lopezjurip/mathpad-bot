@@ -1,0 +1,6 @@
+Unit/currency converter and expression parser with support for symbolic computation.
+:zap: Powered by mathjs.org :zap:
+
+Expression parser with support for symbolic computation.
+Convert and operate: :1234: :straight_ruler: :dollar:
+:zap: Powered by mathjs.org

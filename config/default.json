@@ -1,0 +1,29 @@
+{
+  "NODE_ENV": "development",
+  "PORT": 4000,
+  "APP_URL": null,
+  "NOW_URL": null,
+  "URL": null,
+  "PAGINATION": {
+    "SIZE": 4
+  },
+  "LOG": {
+    "LEVEL": "debug",
+    "DIR": "logs",
+    "EXCEPTIONS": false
+  },
+  "SESSION": "REDIS",
+  "REDIS": {
+    "HOST": "127.0.0.1",
+    "PORT": "6379",
+    "PASSWORD": false
+  },
+  "TELEGRAM": {
+    "TOKEN": null
+  },
+  "GOOGLE": {
+    "MAPS": {
+      "KEY": null
+    }
+  }
+}

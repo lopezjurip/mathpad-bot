@@ -1,0 +1,5 @@
+start - Start this wonderful bot.
+variables - Show current variables.
+clear - Reset variables.
+about - Version, repository and donations.
+help - Looking for help?
