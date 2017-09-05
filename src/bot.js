@@ -1,9 +1,10 @@
 "use strict";
 
+const path = require("path");
 const bb = require("bot-brother");
 const dedent = require("dedent");
 const fs = require("mz/fs");
-const path = require("path");
+const _ = require("lodash");
 
 module.exports = function createBot(options) {
   const { math, manager, config, info, logger } = options;
@@ -21,9 +22,18 @@ module.exports = function createBot(options) {
 
   bot.texts({
     start: dedent`
+      :page_facing_up: *MathPad Bot* | powered by mathjs.org
+
+      :crystal_ball: *Commands:*
       <% commands.forEach(command => { -%>
       /<%= command %>
       <% }); -%>
+
+      :bulb: *Examples:*
+      *>>>*  \`42 * 33 / (2 + 4)\`
+      *>>>*  \`width = sin(45 deg) ^ 2\`
+      *>>>*  \`sqrt(width) inch to cm\`
+      *>>>*  \`profit = (12 * 4 + 2)GBP in USD + 30USD\`
     `,
     about: {
       info: dedent`
@@ -152,7 +162,8 @@ module.exports = function createBot(options) {
 
     for (const line of (ctx.answer || "").split("\n").filter(Boolean)) {
       try {
-        const node = math.parse(line, ctx.session.scope);
+        const input = _.trimStart(line, [">>>", "»>"]);
+        const node = math.parse(input, ctx.session.scope);
         ctx.data.expression = node.toString();
         await ctx.sendMessage("result.input", { parse_mode: "Markdown" });
 
