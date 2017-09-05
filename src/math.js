@@ -35,7 +35,7 @@ module.exports = function createMath(config) {
   function watchCryptos() {
     return Rx.Observable
       .fromPromise(services.crypto.getCurrencies())
-      .mergeMap(cryptos => services.crypto.ticker$(cryptos, { interval: "1 hr" }))
+      .mergeMap(cryptos => services.crypto.ticker$(cryptos, { interval: "3 min" }))
       .retryWhen(err => err.delay(ms("3 sec")));
   }
 
