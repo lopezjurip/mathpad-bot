@@ -12,11 +12,8 @@ Unit & currency converter and expression parser with support for symbolic comput
 :arrow_forward: temperature = 88 fahrenheit in celsius
 :arrow_right_hook: 31.1111111111112 celsius
 
-:arrow_forward: temperature
-:arrow_right_hook: 31.1111111111112 celsius
-
-:arrow_forward: 9 / 3 + 2i # this is a comment.
-:arrow_right_hook: 3 + 2i
+:arrow_forward: wallet = (1 BTC + 10 ETH) in USD # Money converter
+:arrow_right_hook: 7,527.01 USD
 
 :arrow_forward: det([-1, 2; 3, 1])
 :arrow_right_hook: -7

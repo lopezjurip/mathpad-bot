@@ -33,7 +33,8 @@ module.exports = function createBot(options) {
       *>>>*  \`42 * 33 / (2 + 4)\`
       *>>>*  \`width = sin(45 deg) ^ 2\`
       *>>>*  \`sqrt(width) inch to cm\`
-      *>>>*  \`profit = (12 * 4 + 2)GBP in USD + 30USD\`
+      *>>>*  \`profit = ((12 * 4 + 2) GBP in USD) + 30 USD\`
+      *>>>*  \`wallet = (0.1 BTC + 4 ETH) in CLP\`
     `,
     about: {
       info: dedent`
@@ -83,6 +84,8 @@ module.exports = function createBot(options) {
     `,
     error: dedent`
       *Error:* <%= error.message %>
+
+      Maybe you have something corrupted in /variables
     `,
     cancel: dedent`
       OK, will cancel the current operation.
@@ -92,7 +95,11 @@ module.exports = function createBot(options) {
 
   bot.command(/.*/).use("before", async ctx => {
     // Ensure a scope
-    ctx.session.scope = ctx.session.scope || {};
+    try {
+      ctx.session.scope = ctx.session.scope ? JSON.parse(ctx.session.scope, math.instance.json.reviver) : {};
+    } catch (e) {
+      ctx.session.scope = {};
+    }
 
     const meta = {
       user: ctx.meta.user,
@@ -147,19 +154,16 @@ module.exports = function createBot(options) {
   });
 
   bot.command(/^(clear|reset)/).invoke(async ctx => {
-    ctx.data.scope = Object.entries(ctx.session.scope);
     ctx.session.scope = {};
     await ctx.sendMessage("clear", { parse_mode: "Markdown" });
   });
 
   bot.command(/^(vars|variables|scope)/).invoke(async ctx => {
-    ctx.data.scope = Object.entries(ctx.session.scope);
+    ctx.data.scope = Object.entries(ctx.session.scope).map(([name, value]) => [name, math.format(value)]);
     await ctx.sendMessage("scope", { parse_mode: "Markdown" });
   });
 
   bot.command(/.*/).use("before", async ctx => {
-    ctx.data.scope = Object.entries(ctx.session.scope);
-
     for (const line of (ctx.answer || "").split("\n").filter(Boolean)) {
       try {
         const input = _.trimStart(line, [">>>", "»>"]);
@@ -177,5 +181,9 @@ module.exports = function createBot(options) {
         await ctx.sendMessage("error", { parse_mode: "Markdown" });
       }
     }
+  });
+
+  bot.command(/.*/).use("after", async ctx => {
+    ctx.session.scope = JSON.stringify(ctx.session.scope || {});
   });
 };
