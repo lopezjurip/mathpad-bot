@@ -60,16 +60,20 @@ module.exports = function createBot(options) {
     },
     result: {
       input: dedent`
-        *>>>*  \`<%= expression %>\`
+        *[*/<%= i %>*]:*  \`<%= expression %>\`
       `,
       output: dedent`
         <%= result %>
       `,
+      missing: dedent`
+        *Error:* There is not entry *[*/<%= i %>*]*.
+        See /history.
+      `,
     },
     clear: dedent`
-      :sparkles: *Variables were reset.*
+      :sparkles: *Variables and history were reset.*
     `,
-    scope: dedent`
+    variables: dedent`
       <% if (scope.length === 0) { %>
       No variables set.
       <% } else { %>
@@ -82,10 +86,22 @@ module.exports = function createBot(options) {
       Use /clear to reset all of them.
       <% } %>
     `,
+    history: dedent`
+      <% if (pad.length === 0) { %>
+      No history available.
+      <% } else { %>
+      :thought_balloon: *History:*
+      ===
+      <% pad.forEach((expression, i) => { -%>
+      *[*/<%= i %>*]:*  \`<%= expression %>\`
+      <% }); -%>
+      ===
+      Use /clear to reset it.
+      <% } %>
+    `,
     error: dedent`
       *Error:* <%= error.message %>
-
-      Maybe you have something corrupted in /variables
+      Maybe you have something corrupted in /variables.
     `,
     cancel: dedent`
       OK, will cancel the current operation.
@@ -100,6 +116,7 @@ module.exports = function createBot(options) {
     } catch (e) {
       ctx.session.scope = {};
     }
+    ctx.session.pad = ctx.session.pad || [];
 
     const meta = {
       user: ctx.meta.user,
@@ -155,12 +172,50 @@ module.exports = function createBot(options) {
 
   bot.command(/^(clear|reset)/).invoke(async ctx => {
     ctx.session.scope = {};
+    ctx.session.pad = [];
     await ctx.sendMessage("clear", { parse_mode: "Markdown" });
   });
 
-  bot.command(/^(vars|variables|scope)/).invoke(async ctx => {
+  bot.command(/^(variables|vars)/).invoke(async ctx => {
     ctx.data.scope = Object.entries(ctx.session.scope).map(([name, value]) => [name, math.format(value)]);
-    await ctx.sendMessage("scope", { parse_mode: "Markdown" });
+    await ctx.sendMessage("variables", { parse_mode: "Markdown" });
+  });
+
+  bot.command(/^(history)/).invoke(async ctx => {
+    ctx.data.pad = ctx.session.pad;
+    await ctx.sendMessage("history", { parse_mode: "Markdown" });
+  });
+
+  bot.command(/^[0-9]*$/).invoke(async ctx => {
+    if (ctx.command.type !== "invoke") {
+      return;
+    }
+
+    const i = Number(ctx.command.name);
+    const input = ctx.session.pad[i];
+    if (!input) {
+      ctx.data.i = i;
+      return await ctx.sendMessage("result.missing", { parse_mode: "Markdown" });
+    }
+
+    try {
+      const node = math.parse(input, ctx.session.scope);
+      const expression = node.toString();
+      ctx.session.pad[i] = expression;
+
+      ctx.data.i = i;
+      ctx.data.expression = expression;
+      await ctx.sendMessage("result.input", { parse_mode: "Markdown" });
+
+      const code = node.compile();
+      const result = code.eval(ctx.session.scope);
+      ctx.data.result = math.format(result);
+      await ctx.sendMessage("result.output");
+    } catch (err) {
+      logger.error(err);
+      ctx.data.error = err;
+      await ctx.sendMessage("error", { parse_mode: "Markdown" });
+    }
   });
 
   bot.command(/.*/).use("before", async ctx => {
@@ -168,7 +223,11 @@ module.exports = function createBot(options) {
       try {
         const input = _.trimStart(line, [">>>", "»>"]);
         const node = math.parse(input, ctx.session.scope);
-        ctx.data.expression = node.toString();
+        const expression = node.toString();
+        const length = ctx.session.pad.push(expression);
+
+        ctx.data.i = length - 1;
+        ctx.data.expression = expression;
         await ctx.sendMessage("result.input", { parse_mode: "Markdown" });
 
         const code = node.compile();

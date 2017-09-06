@@ -1,5 +1,6 @@
 start - Start this wonderful bot.
 variables - Show current variables.
+history - Show expression history.
 clear - Reset variables.
 about - Version, repository and donations.
 help - Looking for help?
