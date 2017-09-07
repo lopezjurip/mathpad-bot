@@ -1,0 +1,5 @@
+apps:
+  - script   : 'src/index.js'
+    name     : 'mathpad-bot'
+    exec_mode: 'cluster'
+    instances: 'max'

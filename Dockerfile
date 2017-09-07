@@ -10,6 +10,7 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package.json yarn.lock /usr/src/app/
+RUN yarn global add pm2
 RUN yarn install --pure-lockfile
 
 # Bundle app source
@@ -21,4 +22,4 @@ VOLUME /usr/src/app/logs
 
 EXPOSE 4000
 
-CMD ["yarn", "start"]
+CMD ["pm2-docker", "process.yml"]
