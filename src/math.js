@@ -1,15 +1,15 @@
 const Rx = require("rxjs");
+const axios = require("axios");
 const core = require("mathjs/core");
 const numeral = require("numeral");
 const ms = require("millisecond");
 
+const parseMoney = require("@cryptolw/money-parse");
 const { APILayer } = require("@cryptolw/market-fiat");
 const { CoinCap } = require("@cryptolw/market-crypto");
 
 module.exports = function createMath(config) {
-  const math = core.create({
-    number: "BigNumber",
-  });
+  const math = core.create({});
 
   math.import(require("mathjs/lib/type"));
   math.import(require("mathjs/lib/constants"));
@@ -46,14 +46,32 @@ module.exports = function createMath(config) {
       .retryWhen(err => err.delay(ms("3 sec")));
   }
 
-  const base = "USD";
-  createUnit(base, { override: true });
-  Rx.Observable.merge(...[watchFiats(), watchCryptos()]).subscribe(data => {
+  function watchChile() {
+    return Rx.Observable
+      .interval(ms("1 hr"))
+      .startWith(0)
+      .mergeMap(() => axios.get("http://indicadoresdeldia.cl/webservice/indicadores.json"))
+      .map(response =>
+        ["uf", "utm"].map(key => ({
+          code: key.toUpperCase(),
+          rate: parseMoney(response.data["indicador"][key].replace(/\./, "").replace(/,/, "."), "CLP"),
+        }))
+      )
+      .retryWhen(err => err.delay(ms("3 sec")));
+  }
+
+  // Create base unit
+  createUnit("USD", { override: true });
+
+  const sources = [watchFiats(), watchCryptos(), watchChile().delay(ms("3 sec"))];
+  Rx.Observable.merge(...sources).subscribe(data => {
     for (const currency of data) {
       try {
-        createUnit(currency.code, unit(currency.rate[0], base), { override: true });
+        createUnit(currency.code, unit(currency.rate[0], currency.rate[1]), { override: true });
       } catch (e) {
-        console.log("Can't create unit:", currency.code); // eslint-disable-line no-console
+        if (config.get("NODE_ENV") !== "production") {
+          console.log("Can't create unit:", currency.code); // eslint-disable-line no-console
+        }
       }
     }
   });

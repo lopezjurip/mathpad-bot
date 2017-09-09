@@ -33,6 +33,7 @@
   "dependencies": {
     "@cryptolw/market-crypto": "^0.0.2",
     "@cryptolw/market-fiat": "^0.0.2",
+    "@cryptolw/money-parse": "^0.0.3",
     "axios": "^0.16.2",
     "bluebird": "^3.5.0",
     "bot-brother": "^2.1.5",
@@ -56,7 +57,7 @@
     "eslint": "^4.3.0",
     "eslint-config-prettier": "^2.1.1",
     "eslint-plugin-prettier": "^2.1.1",
-    "jest": "^21.0.1",
+    "jest": "^21.0.2",
     "nodemon": "^1.11.0",
     "prettier": "^1.5.3"
   }
