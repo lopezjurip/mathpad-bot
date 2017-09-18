@@ -198,6 +198,9 @@ module.exports = function createBot(options) {
       return await ctx.sendMessage("result.missing", { parse_mode: "Markdown" });
     }
 
+    // Display "typing..."
+    await ctx.bot.api.sendChatAction(ctx.meta.chat.id, "typing"); // Unhandled promise
+
     try {
       const node = math.parse(input, ctx.session.scope);
       const expression = node.toString();
@@ -219,7 +222,19 @@ module.exports = function createBot(options) {
   });
 
   bot.command(/.*/).use("before", async ctx => {
-    for (const line of (ctx.answer || "").split("\n").filter(Boolean)) {
+    if (_.isEmpty(ctx.answer)) {
+      return;
+    }
+
+    const lines = ctx.answer.split("\n").filter(Boolean);
+    if (_.isEmpty(lines)) {
+      return;
+    }
+
+    // Display "typing..."
+    await ctx.bot.api.sendChatAction(ctx.meta.chat.id, "typing"); // Unhandled promise
+
+    for (const line of lines) {
       try {
         const input = _.trimStart(line, [">>>", "»>"]);
         const node = math.parse(input, ctx.session.scope);
