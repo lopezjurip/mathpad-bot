@@ -43,7 +43,7 @@
     "mathjs": "^3.16.3",
     "millisecond": "^0.1.2",
     "moment": "^2.18.1",
-    "mz": "^2.6.0",
+    "mz": "^2.7.0",
     "nconf": "^0.8.4",
     "numbers": "^0.6.0",
     "numeral": "^2.0.6",
@@ -51,14 +51,14 @@
     "redis": "^2.7.1",
     "rxjs": "^5.4.3",
     "winston": "^2.3.1",
-    "winston-daily-rotate-file": "^1.4.6"
+    "winston-daily-rotate-file": "^1.7.0"
   },
   "devDependencies": {
-    "eslint": "^4.3.0",
-    "eslint-config-prettier": "^2.1.1",
-    "eslint-plugin-prettier": "^2.1.1",
-    "jest": "^21.0.2",
-    "nodemon": "^1.11.0",
-    "prettier": "^1.5.3"
+    "eslint": "^4.7.0",
+    "eslint-config-prettier": "^2.5.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "jest": "^21.1.0",
+    "nodemon": "^1.12.1",
+    "prettier": "^1.7.0"
   }
 }
