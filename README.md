@@ -6,6 +6,8 @@ Telegram bot built with [`SerjoPepper/bot-brother`](https://github.com/SerjoPepp
 
 > [Start conversation here](https://t.me/mathpad_bot)
 
+![screenshot](./docs/screenshot.png)
+
 ## Development
 
 **Requirements:**
